@@ -1,0 +1,19 @@
+<section>
+  <h1>All Contacts:</h1>
+  <ul>
+    <li *ngFor="let contact of allContacts$ | async">
+      <span>{{ contact.name }}</span>
+      <button *ngIf="!contact.favorite" (click)="favorite(contact.id)">Favorite</button>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h1>Favorites: </h1>
+  <ul>
+    <li *ngFor="let favorite of favorite$ | async">
+      <span>{{ favorite.name }}</span>
+      <button (click)="unFavorite(favorite.id)">Unfavorite</button>
+    </li>
+  </ul>
+</section>
