@@ -1,0 +1,39 @@
+.list-group {
+  display: grid;
+  list-style: none;
+
+  & > .item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 12px;
+
+    & > .info {
+      display: grid;
+      grid-gap: 8px;
+
+      & > .title {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+
+      & > .description {
+        font-size: 1rem;
+        opacity: 0.5;
+      }
+    }
+
+    & > .actions {
+      margin-left: auto;
+
+      & > .btn {
+        outline: none;
+        border: none;
+        background: transparent;
+        padding: 8px;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+    }
+  }
+}

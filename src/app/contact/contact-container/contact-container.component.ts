@@ -1,5 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ContactService } from '../store/contact.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ClickedEvent } from '../components/contact-list.component';
+import { ContactService } from '../store';
+import { contactsSelector, favoriteSelector, loadingState } from '../store/contact.selectors';
 
 @Component({
   selector: 'app-contact-container',
@@ -7,19 +9,22 @@ import { ContactService } from '../store/contact.service';
   styleUrls: ['./contact-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactContainerComponent {
+export class ContactContainerComponent implements OnInit {
+  loading$ = this.store.select(loadingState);
+  favorite$ = this.store.select(favoriteSelector);
+  contacts$ = this.store.select(contactsSelector);
 
-  allContacts$ = this.store.selectByKey('contacts');
-  favorite$ = this.store.select(state => state.contacts.filter(c => c.favorite));
+  constructor(public store: ContactService) {}
 
-  constructor(public store: ContactService) { }
+  ngOnInit() {
+    this.store.list().subscribe(contacts => this.store.setContacts(contacts));
+  }
 
-  favorite(id: number) {
+  favorite({ id }: ClickedEvent) {
     this.store.setAsFavorite(id);
   }
 
-  unFavorite(id: number) {
+  unFavorite({ id }: ClickedEvent) {
     this.store.setAsUnfav(id);
   }
-
 }

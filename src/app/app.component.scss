@@ -1,0 +1,14 @@
+:host {
+  display: grid;
+
+  & > .header {
+    display: flex;
+    background: black;
+    color: white;
+    padding: 8px;
+
+    & > .brand {
+      margin: 0;
+    }
+  }
+}

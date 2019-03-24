@@ -1,13 +1,12 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, pluck, distinctUntilChanged } from 'rxjs/operators';
 
-
 export class Store<T> {
 
   private _state$: BehaviorSubject<T>;
   public state$: Observable<T>;
 
-  constructor(initialState: T) {
+  protected constructor(initialState: T) {
     this._state$ = new BehaviorSubject<T>(initialState);
     this.state$ = this._state$.asObservable();
   }
@@ -16,22 +15,21 @@ export class Store<T> {
     return this._state$.value;
   }
 
-  selectByKey(key: string) {
+  selectByKey<S>(key: string): Observable<S> {
     return this.state$.pipe(
       pluck(key)
-    );
+    ) as Observable<S>;
   }
 
-  select<S>(selector: (state: T) => S) {
+  select<TResult>(selector: (state: T) => TResult) {
     return this.state$.pipe(
       map(() => selector(this.state)),
       distinctUntilChanged()
     );
   }
 
-  mutate(next: Partial<T>) {
+  protected setState(next: Partial<T>) {
     const newState = Object.assign({}, this.state, next);
-    console.log('newState ========>', newState);
     this._state$.next(newState);
   }
 

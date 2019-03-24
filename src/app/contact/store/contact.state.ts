@@ -8,4 +8,5 @@ export interface Contact {
 
 export interface ContactState {
   contacts: Contact[];
+  loading: boolean;
 }

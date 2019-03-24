@@ -1,19 +1,23 @@
-<section>
-  <h1>All Contacts:</h1>
-  <ul>
-    <li *ngFor="let contact of allContacts$ | async">
-      <span>{{ contact.name }}</span>
-      <button *ngIf="!contact.favorite" (click)="favorite(contact.id)">Favorite</button>
-    </li>
-  </ul>
-</section>
+<ng-container *ngIf="loading$ | async; then loading else content"></ng-container>
+<ng-template #loading>
+  loading...
+</ng-template>
 
-<section>
-  <h1>Favorites: </h1>
-  <ul>
-    <li *ngFor="let favorite of favorite$ | async">
-      <span>{{ favorite.name }}</span>
-      <button (click)="unFavorite(favorite.id)">Unfavorite</button>
-    </li>
-  </ul>
-</section>
+
+<ng-template #content>
+  <section id="favorites">
+    <app-contact-list
+      title="Favorites:"
+      actionIcon="&#9733;"
+      [data]="favorite$ | async"
+      (clicked)="unFavorite($event)"></app-contact-list>
+  </section>
+
+  <section id="contacts">
+    <app-contact-list
+      title="Contacts:"
+      actionIcon="&#9734;"
+      [data]="contacts$ | async"
+      (clicked)="favorite($event)"></app-contact-list>
+  </section>
+</ng-template>
