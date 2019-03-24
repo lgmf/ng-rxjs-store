@@ -17,7 +17,8 @@ export class Store<T> {
 
   selectByKey<S>(key: string): Observable<S> {
     return this.state$.pipe(
-      pluck(key)
+      pluck(key),
+      distinctUntilChanged()
     ) as Observable<S>;
   }
 

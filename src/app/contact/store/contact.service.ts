@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
-import { delay, finalize } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { delay, finalize, map } from 'rxjs/operators';
 import { Store } from 'src/app/store/store';
 import contacts from 'src/assets/data/contacts';
-import { ContactState, Contact } from './contact.state';
+import { Contact, ContactState } from './contact.state';
 
 const initialState: ContactState = {
   contacts: [],
@@ -20,9 +20,13 @@ export class ContactService extends Store<ContactState> {
   }
 
   list(): Observable<Contact[]> {
+    const byName = (a: Contact, b: Contact) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+
     this.setState({ loading: true });
+
     return of(contacts).pipe(
-      delay(1200),
+      delay(1500),
+      map(contactList => contactList.sort(byName)),
       finalize(() => this.setState({ loading: false }))
     );
   }
