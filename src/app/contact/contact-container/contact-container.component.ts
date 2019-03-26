@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ClickedEvent } from '../components/contact-list.component';
+import { PageChangedEvent } from '../components/contact-list-pagination/contact-list-pagination.component';
 import { ContactService } from '../store';
-import { contactsSelector, favoriteSelector, loadingState } from '../store/contact.selectors';
+import { ContactSelectors } from '../store/contact.selectors';
 
 @Component({
   selector: 'app-contact-container',
@@ -10,21 +10,20 @@ import { contactsSelector, favoriteSelector, loadingState } from '../store/conta
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactContainerComponent implements OnInit {
-  loading$ = this.store.select(loadingState);
-  favorite$ = this.store.select(favoriteSelector);
-  contacts$ = this.store.select(contactsSelector);
+  loading$ = this.store.select(ContactSelectors.loading);
+  pages$ = this.store.select(ContactSelectors.pages);
+  contacts$ = this.store.select(ContactSelectors.contactList);
+
+  currentPage = 1;
 
   constructor(public store: ContactService) {}
 
   ngOnInit() {
     this.store.list().subscribe(contacts => this.store.setContacts(contacts));
+    this.currentPage = this.store.state.listControls.currentPage;
   }
 
-  favorite({ id }: ClickedEvent) {
-    this.store.setAsFavorite(id);
-  }
-
-  unFavorite({ id }: ClickedEvent) {
-    this.store.setAsUnfav(id);
+  onPageChanged({ nextPage }: PageChangedEvent) {
+    this.store.setCurrentPage(nextPage);
   }
 }

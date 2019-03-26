@@ -1,0 +1,15 @@
+<button
+  class="btn"
+  [class.-hidden]="isOnFirstPage$ | async"
+  (click)="previous()">Previous</button>
+
+<ng-container *ngFor="let page of pages; let i= index;">
+  <span class="page" [class.-current]="page === current">
+    {{ page }}
+  </span>
+</ng-container>
+
+<button
+  class="btn btn-page"
+  [class.-hidden]="isOnLastPage$ | async"
+  (click)="next()">Next</button>

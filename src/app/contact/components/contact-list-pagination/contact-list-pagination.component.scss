@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  justify-self: center;
+
+  & > .btn {
+    transition: opacity 0.35s ease-in-out;
+  }
+
+  & > .btn.-hidden {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  & > .page {
+    font-size: 1.2rem;
+    margin: 0 12px;
+    padding: 8px 10px;
+    border: 1px solid black;
+    transform: scale(0.8);
+    transition: transform 0.35s ease-in;
+
+    &.-current {
+      background: black;
+      color: white;
+      border-color: white;
+      transform: scale(1);
+    }
+  }
+}

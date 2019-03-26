@@ -5,19 +5,11 @@
 
 
 <ng-template #content>
-  <section id="favorites">
-    <app-contact-list
-      title="Favorites:"
-      actionIcon="&#9733;"
-      [data]="favorite$ | async"
-      (clicked)="unFavorite($event)"></app-contact-list>
-  </section>
-
-  <section id="contacts">
-    <app-contact-list
-      title="Contacts:"
-      actionIcon="&#9734;"
-      [data]="contacts$ | async"
-      (clicked)="favorite($event)"></app-contact-list>
-  </section>
+  <app-contact-list
+    title="Contacts:"
+    [data]="contacts$ | async"></app-contact-list>
+  <app-contact-list-pagination
+    [pages]="pages$ | async"
+    [current]="currentPage$ | async"
+    (pageChanged)="onPageChanged($event)"></app-contact-list-pagination>
 </ng-template>
