@@ -10,6 +10,6 @@
     [data]="contacts$ | async"></app-contact-list>
   <app-contact-list-pagination
     [pages]="pages$ | async"
-    [current]="currentPage$ | async"
+    [current]="currentPage"
     (pageChanged)="onPageChanged($event)"></app-contact-list-pagination>
 </ng-template>
