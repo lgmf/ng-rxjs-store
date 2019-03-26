@@ -5,9 +5,8 @@
 
 
 <ng-template #content>
-  <app-contact-list
-    title="Contacts:"
-    [data]="contacts$ | async"></app-contact-list>
+  <app-contact-list-search (valueChanged)="onSearchChanged($event)"></app-contact-list-search>
+  <app-contact-list [data]="contacts$ | async"></app-contact-list>
   <app-contact-list-pagination
     [pages]="pages$ | async"
     [current]="currentPage"

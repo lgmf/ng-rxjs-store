@@ -4,7 +4,8 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
+  OnChanges
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -18,14 +19,14 @@ export interface PageChangedEvent {
   styleUrls: ['./contact-list-pagination.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactListPaginationComponent implements OnInit {
+export class ContactListPaginationComponent implements OnChanges, OnInit {
   @Input() pages: number[] = [];
   @Input() current = 1;
 
   @Output() pageChanged = new EventEmitter<PageChangedEvent>();
 
-  isOnLastPage$: BehaviorSubject<boolean>;
-  isOnFirstPage$: BehaviorSubject<boolean>;
+  isOnLastPage$ = new BehaviorSubject(true);
+  isOnFirstPage$ = new BehaviorSubject(false);
 
   private get isOnFirstPage(): boolean {
     return this.current === 1;
@@ -33,6 +34,10 @@ export class ContactListPaginationComponent implements OnInit {
 
   private get isOnLastPage(): boolean {
     return this.current === this.pages.length;
+  }
+
+  ngOnChanges() {
+    this.updateFlags();
   }
 
   ngOnInit() {

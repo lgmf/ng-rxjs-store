@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { ContactContainerComponent } from './contact/contact-container/contact-container.component';
 import { ContactListComponent } from './contact/components/contact-list.component';
 import { ContactListPaginationComponent } from './contact/components/contact-list-pagination/contact-list-pagination.component';
+import { ContactListSearchComponent } from './contact/components/contact-list-search/contact-list-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactContainerComponent,
     ContactListComponent,
-    ContactListPaginationComponent
+    ContactListPaginationComponent,
+    ContactListSearchComponent
   ],
   imports: [
     BrowserModule

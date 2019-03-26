@@ -8,7 +8,6 @@ export interface ClickedEvent {
 @Component({
   selector: 'app-contact-list',
   template: `
-    <h1 class="title">{{ title }}</h1>
     <ul class="list-group">
       <li *ngFor="let item of data" class="item">
         <div class="info">
@@ -36,7 +35,6 @@ export interface ClickedEvent {
   ]
 })
 export class ContactListComponent {
-  @Input() title: string;
   @Input() data: Contact[];
   @Input() actionIcon: string;
   @Output() clicked = new EventEmitter<ClickedEvent>();

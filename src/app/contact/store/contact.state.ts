@@ -13,6 +13,7 @@ export interface Contact {
 export interface ListControls {
   currentPage: number;
   limitPerPage: number;
+  search: string;
 }
 
 export interface ContactState {

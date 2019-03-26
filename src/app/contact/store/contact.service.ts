@@ -11,7 +11,8 @@ const initialState: ContactState = {
   loading: false,
   listControls: {
     limitPerPage: 10,
-    currentPage: 1
+    currentPage: 1,
+    search: null
   }
 };
 
@@ -55,6 +56,18 @@ export class ContactService extends Store<ContactState> {
       listControls: {
         ...this.state.listControls,
         currentPage: next
+      }
+    });
+  }
+
+  setSearch(next: string) {
+    const search = next;
+    console.log(search);
+    this.setState({
+      listControls: {
+        ...this.state.listControls,
+        currentPage: 1,
+        search
       }
     });
   }

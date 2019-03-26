@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+
+  & > .searchinput {
+    padding: 8px;
+    width: 100%;
+    font-size: 1.25rem;
+    color: rgba(0,0,0,0.6);
+    outline: none;
+  }
+
+  & > .searchinput:focus {
+    border-width: 2px;
+    border-color: rgba(0,0,0,0.8);
+  }
+}
